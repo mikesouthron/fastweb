@@ -1,6 +1,6 @@
-#The Fast Web
+# The Fast Web
 
-##Background
+## Background
 
 Web Development, there is a common belief that there is more to be gained by creating abstractions and frameworks, using programming langauges that are `easier` to work with, that lower the barrier for entry, and make it faster to get started actually writing the logic for your application. Rather than writing the fastest application you can for your use case.
 
@@ -26,14 +26,14 @@ If you were to deal with all the different requests with just functions, only ex
 
 This is what I am going to try and figure out with this project. By building a web application from basic principles.
 
-##Early Descisions
+## Early Descisions
 
-###Language
+### Language
 I will be writing this to be as fast as possible, so I will be using C++ written in a quite non-C++ way, what I mean by this is that I will almost be writing C, but using some of the C++ standard library to make the code a bit nicer, better structs, vectors, smart pointers etc.
 
 There are a couple of languages coming that would be really cool write this in, Zig and Odin, but they aren't production ready. Also Jai, not released at all yet, looks really good but I feel the standard library would be way too focused on gaming to be useful.
 
-###Thread per request vs event loop
+### Thread per request vs event loop
 This is an important decision early on.
 
 One thread per request is conceptually easier to understand, request comes in, thread is created, all handling of the request is done on that thread, it can block and wait on I/O and further network requests, the only interaction between threads is if you have some kind of in-memory session storage, that remebers things about previous and current requests, that needs to be carefully handled with locking and mutexes.
@@ -46,6 +46,6 @@ However, I feel that in general, unless you are expecting millions of requests a
 
 So I will be dealing with the, potential, performance hit of creating one thread per request. If you are dealing with a high load in this scenario, you can block once you hit some max level, Tomcat, for example, only allows 500 simultaneous requests by default, but if your application can respond fast enough for each request, this isn't really an issue and the number can be higher, any pauses will be negligible. If you are in the envious position of running out of resources because of load, horizontal scaling is going to be the best option.
 
-##Deployment
+## Deployment
 
-Deployment should be trivial, 
+Deployment should be trivial binary deployment.
